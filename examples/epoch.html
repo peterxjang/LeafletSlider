@@ -26,46 +26,80 @@
     <script src="../SliderControl.js"></script>
 
     <script>
-    function onEachFeature(feature, layer) {
-        // does this feature have a property named popupContent?
-        if (feature.properties && feature.properties.popupContent) {
-            layer.bindPopup(feature.properties.popupContent);
-        }
-    }
+    // function onEachFeature(feature, layer) {
+    //     // does this feature have a property named popupContent?
+    //     if (feature.properties && feature.properties.popupContent) {
+    //         var facility = feature.properties.f;
+    //         console.log(facility);
+    //         var facility_id = feature.properties.frs_id;
+    //         var industry = feature.properties.industry;
+    //         layer.bindPopup("Facility: " + facility + "<br /> Id: " + facility_id + "<br /> Industry: " + industry).openPopup();
+    //     }
+    // }
 
 
     var sliderControl = null;
 
-    var myMap = L.map('map').setView([52.06, 7.40], 10);
+    var myMap = L.map('map').setView([37.41907305286242, -117.61962890625001], 6);
 
     L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(myMap);
 
+    $.getJSON("tri_release.json", function(json) {
+        var tri1987 = L.geoJson(json, {
+            pointToLayer: function (feature, latlng) {  
+                return L.circleMarker(latlng, {
+                    radius: 3.0,
+                    fillColor: '#e1118e',
+                    color: '#000000',
+                    weight: 1,
+                    opacity: 1.0,
+                    fillOpacity: 1.0
+                    })
+                },
+            filter: function(feature, layer) {
+                if (feature.properties.year == "1987-01-01") {
+                    return feature;
+                }
+            },
+            onEachFeature: function(feature, layer) {
+                var year = feature.properties.year.substr(0, 4);
+                var pollutant = feature.properties.pollutant;
+                var release = feature.properties.release;
+                var unit = feature.properties.unit;
+                var facility = feature.properties.f;
+                var facility_id = feature.properties.frs_id;
+                var industry = feature.properties.industry;
+                layer.bindPopup("YEAR: " + year + "<br /> POLLUTANT: " + pollutant + "<br /> RELEASE: " + release + " " + unit + "<br /> FACILITY: " + facility + "<br /> FACILITY ID: " + facility_id + "<br /> INDUSTRY: " + industry, { maxWidth: 300, maxHeight: 200, autoPan: true, closeButton: true });
+            }
+        }).addTo(myMap);
+    })
+    // //Fetch some data from a GeoJSON file
+    // $.getJSON("tri_release1.json", function(json) {
+    //     var testlayer = L.geoJson(json, {onEachFeature: onEachFeature}),
+    //         sliderControl = L.control.sliderControl({
+    //             position: "topright",
+    //             layer: testlayer
+    //         });
 
-    //Fetch some data from a GeoJSON file
-    $.getJSON("epoch.json", function(json) {
-        var testlayer = L.geoJson(json, {onEachFeature: onEachFeature}),
-            sliderControl = L.control.sliderControl({
-                position: "topright",
-                layer: testlayer
-            });
+    //     //For a Range-Slider use the range property:
+    //     sliderControl = L.control.sliderControl({
+    //         position: "topright",
+    //         layer: testlayer, 
+    //         timeAttribute: "year",
+    //         isEpoch: false,
+    //         timeStrLength: 4,
+    //         range: false,
+    //         follow: 1,
+    //         sameDate: true,
+    //     });
 
-        //For a Range-Slider use the range property:
-        sliderControl = L.control.sliderControl({
-            position: "topright",
-            layer: testlayer, 
-            timeAttribute: "epoch",
-            isEpoch: true,
-            range: false,
-            follow: 1
-        });
-
-        //Make sure to add the slider to the map ;-)
-        myMap.addControl(sliderControl);
-        //And initialize the slider
-        sliderControl.startSlider();
-    });
+    //     //Make sure to add the slider to the map ;-)
+    //     myMap.addControl(sliderControl);
+    //     //And initialize the slider
+    //     sliderControl.startSlider();
+    // });
     </script>
 </body>
 

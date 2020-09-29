@@ -1,0 +1,151 @@
+{
+    "type": "FeatureCollection",
+    "crs": {
+        "type": "name",
+        "properties": {
+            "name": "EPSG:4326"
+        }
+    },
+    "features": [
+        {
+            "type": "Feature",
+            "properties": {
+                "year": "1987-01-01",
+                "f": "91506BRMRF1121I",
+                "frs_id": "1.10014E+11",
+                "f_lat": "34.182080000000000000",
+                "f_long": "-118.3242900000000000",
+                "industry": "Printing",
+                "pollutant": "SULFURIC ACID (1994 AND AFTER ACID AEROSOLS ONLY)",
+                "cas_id": "7664939",
+                "release": "250",
+                "unit": "Pounds",
+                "clean_air": false,
+                "metal": false,
+                "carcinogen": false,
+                "medium": "Stack Air",
+                "popupContent":
+                    "Pollutant: SULFURIC ACID (1994 AND AFTER ACID AEROSOLS ONLY)"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -118.32428890446892,
+                    34.18208056522183
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "year": "1987-01-01",
+                "f": "94572NCLSNOLDHI",
+                "frs_id": "1.1E+11",
+                "f_lat": "38.04360000000000000",
+                "f_long": "-122.253200000000000",
+                "industry": "Petroleum",
+                "pollutant": "ETHYLBENZENE",
+                "cas_id": "100414",
+                "release": "60",
+                "unit": "Pounds",
+                "clean_air": true,
+                "metal": false,
+                "carcinogen": false,
+                "medium": "Stack Air",
+                "popupContent":
+                    "Pollutant: ETHYLBENZENE"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -122.25319995273802,
+                    38.04359861951831
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "year": "1988-01-01",
+                "f": "92504RCRPN7809L",
+                "frs_id": "1.10E+11",
+                "f_lat": "33.9273060000000000000",
+                "f_long": "-117.40535800000000000",
+                "industry": "Plastics and Rubber",
+                "pollutant": "TOLUENE-2,4-DIISOCYANATE",
+                "cas_id": "584849",
+                "release": "250",
+                "unit": "Pounds",
+                "clean_air": true,
+                "metal": false,
+                "carcinogen": true,
+                "medium": "Stack Air",
+                "popupContent":
+                    "Pollutant: TOLUENE-2,4-DIISOCYANATE"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -117.40535828046464,
+                    33.92730589400953
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "year": "1988-01-01",
+                "f": "90245HGHSR999NO",
+                "frs_id": "1.10E+11",
+                "f_lat": "34.028170000000000000",
+                "f_long": "-118.26245400000000000",
+                "industry": "Fabricated Metals",
+                "pollutant": "SULFURIC ACID (1994 AND AFTER ACID AEROSOLS\" ONLY)\"",
+                "cas_id": "7664939",
+                "release": "1",
+                "unit": "Pounds",
+                "clean_air": false,
+                "metal": false,
+                "carcinogen": false,
+                "medium": "Stack Air",
+                "popupContent":
+                    "Pollutant: SULFURIC ACID"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -118.2624542624451,
+                    34.028172918485474
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "year": "1988-01-01",
+                "f": "90245HGHSR999NO",
+                "frs_id": "1.10E+11",
+                "f_lat": "34.028170000000000000",
+                "f_long": "-118.26245400000000000",
+                "industry": "Fabricated Metals",
+                "pollutant": "NITRIC ACID",
+                "cas_id": "7697372",
+                "release": "5",
+                "unit": "Pounds",
+                "clean_air": false,
+                "metal": false,
+                "carcinogen": false,
+                "medium": "Stack Air",
+                "popupContent":
+                    "Pollutant: NITRIC ACID"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -118.2624542624451,
+                    34.028172918485474
+                ]
+            }
+        }
+    ]
+}
