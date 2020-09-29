@@ -59,7 +59,7 @@
                     })
                 },
             filter: function(feature, layer) {
-                if (feature.properties.year == "1987-01-01") {
+                if (feature.properties.year.substr(0,4) == "1987") {
                     return feature;
                 }
             },
@@ -71,7 +71,88 @@
                 var facility = feature.properties.f;
                 var facility_id = feature.properties.frs_id;
                 var industry = feature.properties.industry;
-                layer.bindPopup("YEAR: " + year + "<br /> POLLUTANT: " + pollutant + "<br /> RELEASE: " + release + " " + unit + "<br /> FACILITY: " + facility + "<br /> FACILITY ID: " + facility_id + "<br /> INDUSTRY: " + industry, { maxWidth: 300, maxHeight: 200, autoPan: true, closeButton: true });
+                layer.bindPopup("<strong>YEAR:</strong> " + year + "<br /> <strong>POLLUTANT: </strong>" + pollutant + "<br /><strong> RELEASE: </strong>" + release + " " + unit + "<br /><strong> FACILITY: </strong>" + facility + "<br /><strong> FACILITY ID: </strong>" + facility_id + "<br /><strong> INDUSTRY: </strong>" + industry, { maxWidth: 300, maxHeight: 200, autoPan: true, closeButton: true });
+            }
+        }).addTo(myMap);
+        var tri1988 = L.geoJson(json, {
+            pointToLayer: function (feature, latlng) {  
+                return L.circleMarker(latlng, {
+                    radius: 3.0,
+                    fillColor: '#e1118e',
+                    color: '#000000',
+                    weight: 1,
+                    opacity: 1.0,
+                    fillOpacity: 1.0
+                    })
+                },
+            filter: function(feature, layer) {
+                if (feature.properties.year.substr(0,4) == "1988") {
+                    return feature;
+                }
+            },
+            onEachFeature: function(feature, layer) {
+                var year = feature.properties.year.substr(0, 4);
+                var pollutant = feature.properties.pollutant;
+                var release = feature.properties.release;
+                var unit = feature.properties.unit;
+                var facility = feature.properties.f;
+                var facility_id = feature.properties.frs_id;
+                var industry = feature.properties.industry;
+                layer.bindPopup("<strong>YEAR: </strong>" + year + "<br /><strong> POLLUTANT: </strong>" + pollutant + "<br /><strong> RELEASE: </strong>" + release + " " + unit + "<br /><strong> FACILITY: </strong>" + facility + "<br /><strong> FACILITY ID: </strong>" + facility_id + "<br /><strong> INDUSTRY: </strong>" + industry, { maxWidth: 300, maxHeight: 200, autoPan: true, closeButton: true });
+            }
+        }).addTo(myMap);
+        var tri1989 = L.geoJson(json, {
+            pointToLayer: function (feature, latlng) {  
+                return L.circleMarker(latlng, {
+                    radius: 3.0,
+                    fillColor: '#e1118e',
+                    color: '#000000',
+                    weight: 1,
+                    opacity: 1.0,
+                    fillOpacity: 1.0
+                    })
+                },
+            filter: function(feature, layer) {
+                if (feature.properties.year.substr(0,4) == "1989") {
+                    return feature;
+                }
+            },
+            onEachFeature: function(feature, layer) {
+                var year = feature.properties.year.substr(0, 4);
+                var pollutant = feature.properties.pollutant;
+                var release = feature.properties.release;
+                var unit = feature.properties.unit;
+                var facility = feature.properties.f;
+                var facility_id = feature.properties.frs_id;
+                var industry = feature.properties.industry;
+                layer.bindPopup("<strong>YEAR: </strong>" + year + "<br /><strong> POLLUTANT: </strong>" + pollutant + "<br /><strong> RELEASE: </strong>" + release + " " + unit + "<br /><strong> FACILITY: </strong>" + facility + "<br /><strong> FACILITY ID: </strong>" + facility_id + "<br /><strong> INDUSTRY: </strong>" + industry, { maxWidth: 300, maxHeight: 200, autoPan: true, closeButton: true });
+            }
+        }).addTo(myMap);
+        var tri1990 = L.geoJson(json, {
+            pointToLayer: function (feature, latlng) {  
+                return L.circleMarker(latlng, {
+                    radius: 3.0,
+                    fillColor: '#e1118e',
+                    color: '#000000',
+                    weight: 1,
+                    opacity: 1.0,
+                    fillOpacity: 1.0
+                    })
+                },
+            filter: function(feature, layer) {
+                if (feature.properties.year.substr(0,4) == "1990") {
+                    return feature;
+                }
+            },
+            onEachFeature: function(feature, layer) {
+                var year = feature.properties.year.substr(0, 4);
+                var pollutant = feature.properties.pollutant;
+                var release = feature.properties.release;
+                var unit = feature.properties.unit;
+                var facility = feature.properties.f;
+                var facility_id = feature.properties.frs_id;
+                var industry = feature.properties.industry;
+                layer.bindPopup("<strong>YEAR: </strong>" + year + "<br /><strong> POLLUTANT: </strong>" + pollutant + "<br /><strong> RELEASE: </strong>" + release + " " + unit + "<br /><strong> FACILITY: </strong>" + facility + "<br /><strong> FACILITY ID: </strong>" + facility_id + "<br /><strong> INDUSTRY: </strong>" + industry, { maxWidth: 300, maxHeight: 200, autoPan: true, closeButton: true });
             }
         }).addTo(myMap);
     })
