@@ -50,6 +50,7 @@
         var tri1987 = L.geoJson(json, {
             pointToLayer: function (feature, latlng) {  
                 return L.circleMarker(latlng, {
+                    year: "1987",
                     radius: 3.0,
                     fillColor: '#e1118e',
                     color: '#000000',
@@ -155,7 +156,27 @@
                 layer.bindPopup("<strong>YEAR: </strong>" + year + "<br /><strong> POLLUTANT: </strong>" + pollutant + "<br /><strong> RELEASE: </strong>" + release + " " + unit + "<br /><strong> FACILITY: </strong>" + facility + "<br /><strong> FACILITY ID: </strong>" + facility_id + "<br /><strong> INDUSTRY: </strong>" + industry, { maxWidth: 300, maxHeight: 200, autoPan: true, closeButton: true });
             }
         }).addTo(myMap);
+        group = new L.layerGroup();
+        group.addLayer(tri1987);
+        group.addLayer(tri1988);
+        group.addLayer(tri1989);
+        group.addLayer(tri1990);
+        var sliderControl = L.control.sliderControl({
+            position: "topright",
+            layer: group,
+            // timeAttribute: group.year,
+            isEpoch: false,
+            timeStrLength: 4,
+            follow: 1,
+            sameDate: true,
+        });
+        myMap.addControl(sliderControl);
+        sliderControl.startSlider();
     })
+
+
+
+
     // //Fetch some data from a GeoJSON file
     // $.getJSON("tri_release1.json", function(json) {
     //     var testlayer = L.geoJson(json, {onEachFeature: onEachFeature}),
@@ -164,17 +185,17 @@
     //             layer: testlayer
     //         });
 
-    //     //For a Range-Slider use the range property:
-    //     sliderControl = L.control.sliderControl({
-    //         position: "topright",
-    //         layer: testlayer, 
-    //         timeAttribute: "year",
-    //         isEpoch: false,
-    //         timeStrLength: 4,
-    //         range: false,
-    //         follow: 1,
-    //         sameDate: true,
-    //     });
+        // //For a Range-Slider use the range property:
+        // sliderControl = L.control.sliderControl({
+        //     position: "topright",
+        //     layer: testlayer, 
+        //     timeAttribute: "year",
+        //     isEpoch: false,
+        //     timeStrLength: 4,
+        //     range: false,
+        //     follow: 1,
+        //     sameDate: true,
+        // });
 
     //     //Make sure to add the slider to the map ;-)
     //     myMap.addControl(sliderControl);
