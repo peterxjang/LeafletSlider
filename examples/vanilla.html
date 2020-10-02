@@ -12,30 +12,30 @@
 </head>
 
 <body>
-    <div id="map" style="width: 100%; height: 300px"></div>
+    <div id="map" style="width: 100%; height: 550px"></div>
 
     <div class="inputs" id="event-types">
-      <input type="checkbox" class="event-type" name="funfair" value="funfair" checked="true">
-      <label for="funfair">Funfair</label>
-      <input type="checkbox" class="event-type" name="trade" value="trade-demonstration" checked="true">
-      <label for="trade">Trade demonstration</label>
-      <input type="checkbox" class="event-type" name="free-exhibition" value="free-exhibition" checked="true">
-      <label for="free-exhibition">Free exhibition</label>
-      <input type="checkbox" class="event-type" name="paying-exhibition" value="paying-exhibition" checked="true">
-      <label for="exhibition">Paying exhibition</label>
-      <input type="checkbox" class="event-type" name="paying-demonstration" value="paying-demonstration" checked="true">
-      <label for="paying-demonstration">Paying demonstration</label>
-      <input type="checkbox" class="event-type" name="unknown" value="unknown" checked="true">
-      <label for="unknown">Unknown</label>
+      <input type="checkbox" class="event-type" name="plastics-and-rubber" value="Plastics and Rubber" checked="true">
+      <label for="plastics-and-rubber">Plastics and Rubber</label>
+      <input type="checkbox" class="event-type" name="furniture" value="Furniture" checked="true">
+      <label for="furniture">Furniture</label>
+      <input type="checkbox" class="event-type" name="fabricated-metals" value="Fabricated Metals" checked="true">
+      <label for="fabricated-metals">Fabricated Metals</label>
+      <input type="checkbox" class="event-type" name="electric-utilities" value="Electric Utilities" checked="true">
+      <label for="electric-utilities">Electric Utilities</label>
+      <input type="checkbox" class="event-type" name="nonmetallic-mineral-product" value="Nonmetallic Mineral Product" checked="true">
+      <label for="nonmetallic-mineral-product">Nonmetallic Mineral Product</label>
+      <input type="checkbox" class="event-type" name="textiles" value="Textiles" checked="true">
+      <label for="textiles">Textiles</label>
     </div>
 
     <div class="inputs" id="years">
-      <input type="checkbox" class="year" value="1890" checked="true">
-      <label for="1890">1890</label>
-      <input type="checkbox" class="year" value="1892" checked="true">
-      <label for="1892">1892</label>
-      <input type="checkbox" class="year" value="1893" checked="true">
-      <label for="1893">1893</label>
+      <input type="checkbox" class="year" value="1987" checked="true">
+      <label for="1987">1987</label>
+      <input type="checkbox" class="year" value="2000" checked="true">
+      <label for="2000">2000</label>
+      <input type="checkbox" class="year" value="2010" checked="true">
+      <label for="2010">2010</label>
     </div>
 
     <script src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js"></script>
@@ -44,10 +44,29 @@
 
     <script>
       // Setup map
-      var myMap = L.map('map').setView([48.2083537, 16.3725042], 2)
-      L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-      }).addTo(myMap);
+      var terrain = L.tileLayer('http://tile.stamen.com/terrain/{z}/{x}/{y}.jpg'),
+          streets =  L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+          });
+        
+      var baseMaps = {
+          "Terrain": terrain,
+          "Streets": streets
+        };
+
+      var myMap = L.map('map', {
+        center: [37.41907305286242, -117.61962890625001],
+        zoom: 6,
+        minZoom: 6,
+        maxZoom: 12,
+        layers: [terrain, streets]
+        });
+
+      L.control.layers(baseMaps).addTo(myMap);
+
+      // var myMap = L.map('map').setView([48.2083537, 16.3725042], 2)
+      // L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+      //   attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+      // }).addTo(myMap);
 
       // Get initial checkbox states from HTML
       var checkboxStates;
@@ -67,25 +86,86 @@
       }
       updateCheckboxStates();
 
+
+
       // Define geojson layer (without any data yet)
       var geojsonLayer = L.geoJson(null, {
         filter: function(feature) {
-          var isYearChecked = checkboxStates.years.includes(feature.properties.year);
-          var isEventTypeChecked = checkboxStates.eventTypes.includes(feature.properties.eventType);
+          var isYearChecked = checkboxStates.years.includes(feature.properties.year.substr(0,4));
+          var isEventTypeChecked = checkboxStates.eventTypes.includes(feature.properties.industry);
           return isYearChecked && isEventTypeChecked;  
         },
         onEachFeature: function(feature, layer) {
-          if (feature.properties && feature.properties.organiser) {
-            layer.bindPopup(feature.properties.organiser);
+          if (feature.properties) {
+            var year = feature.properties.year.substr(0, 4);
+                    var pollutant = feature.properties.pollutant;
+                    var release = feature.properties.release;
+                    var unit = feature.properties.unit;
+                    var facility = feature.properties.f;
+                    var facility_id = feature.properties.frs_id;
+                    var industry = feature.properties.industry;
+                    layer.bindPopup("<strong>YEAR: </strong>" + year + "<br /><strong> POLLUTANT: </strong>" + pollutant + "<br /><strong> RELEASE: </strong>" + release + " " + unit + "<br /><strong> FACILITY: </strong>" + facility + "<br /><strong> FACILITY ID: </strong>" + facility_id + "<br /><strong> INDUSTRY: </strong>" + industry, { maxWidth: 300, maxHeight: 200, autoPan: true, closeButton: true });
           }
+        },
+        pointToLayer: function (feature, latlng) {
+          if (feature.properties.industry === "Plastics and Rubber") {
+          var geojsonMarkerOptions = {
+          radius: 3,
+          fillColor: "#ff7800",
+          color: "#000",
+          weight: 1,
+          opacity: 1,
+          fillOpacity: 0.8
+          };
+        } else if (feature.properties.industry === "Furniture") {
+          var geojsonMarkerOptions = {
+          radius: 3,
+          fillColor: "#e1118e",
+          color: "#000",
+          weight: 1,
+          opacity: 1,
+          fillOpacity: 0.8
+          };
+        } else {
+          var geojsonMarkerOptions = {
+          radius: 3,
+          fillColor: "#000000",
+          color: "#000",
+          weight: 1,
+          opacity: 1,
+          fillOpacity: 0.8
+          };
+        };
+          return L.circleMarker(latlng, geojsonMarkerOptions);
         }
       }).addTo(myMap);
 
       // Get JSON from web request
-      $.getJSON("vanilla.json", function(json) {
+      $.getJSON("tri_release.json", function(json) {
         // Update geojson layer with data
-        geojsonLayer.addData(json); 
         
+        geojsonLayer.addData(json); 
+        console.log(geojsonLayer);
+
+
+
+        // function restyleLayer (propertyName) {
+        //   geojsonLayer.eachLayer(function(featureInstanceLayer){
+        //     // propertyValue = featureInstanceLayer.feature.properties.industry;
+
+        //     // var myFillColor = getColor(propertyName, propertyValue);
+
+        //     featureInstanceLayer.setStyle({
+        //       fillColor: '#e1118e',
+        //       fillOpacity: 0.8,
+        //       weight: 0.5
+        //     });
+
+        //   });
+
+        // }
+
+
         // Listen to 'change' event of all inputs
         for (let input of document.querySelectorAll('input')) {
           input.onchange = (e) => {
