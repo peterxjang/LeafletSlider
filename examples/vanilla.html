@@ -19,6 +19,7 @@
 </head>
 
 <body>
+
     <div id="map" style="width: 75%; height: 525px"></div>
 
     <!-- <div class="inputs" id="event-types">
@@ -206,9 +207,9 @@
       }).addTo(myMap);
 
       // Get JSON from web request
-      $.getJSON("tri_release.json", function(json) {
+      $.getJSON('http://localhost:8000/ca_pollution/api/tri_releases/', function(json) {
         // Update geojson layer with data
-        
+        console.log(json);
         geojsonLayer.addData(json); 
         console.log(geojsonLayer);
 
